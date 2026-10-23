@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sevgi Yiğitalp | Mütercim Tercüman</title>
+  
+  <!-- Tailwind CSS CDN (Tasarım ve Duyarlılık için) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: 'Playfair Display' (Başlıklar için asil/edebi) & 'Plus Jakarta Sans' (Gövde metinleri için okunabilir) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            // İstenen Renk Paleti: Lacivert ve Krem
+            navy: {
+              950: '#070f1e', // En koyu lacivert (Derin arka plan)
+              900: '#0d1b2a', // Ana lacivert
+              850: '#132338', // Kart arka plan laciverti
+              800: '#1b2d45', // Açık lacivert / Çerçeveler
+              700: '#273f5f',
+              300: '#a3b8d4',
+            },
+            cream: {
+              50: '#faf8f5',  // En açık krem / Fildişi
+              100: '#f4efe6', // Yumuşak krem zemin
+              200: '#e8decb', // Krem çizgi ve bordürler
+              300: '#d9cbb2',
+              800: '#544632',
+              900: '#33291c',
+            },
+            gold: {
+              400: '#d4af37', // Vurgu için zarif sıcak altın sarısı
+              500: '#c59b27',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Daktilo Efekti İmleci */
+    .typing-cursor::after {
+      content: '|';
+      display: inline-block;
+      color: #d4af37;
+      animation: blink 0.8s infinite;
+      margin-left: 2px;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Yumuşak gölgeler ve geçişler */
+    .paper-shadow {
+      box-shadow: 0 10px 30px -10px rgba(13, 27, 42, 0.08);
+    }
+  </style>
+</head>
+<body class="bg-cream-50 text-navy-900 font-sans selection:bg-navy-900 selection:text-cream-50 antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- ========================================================
+       ÜST MENÜ / NAVBAR (TR - EN Dil Düğmesi & Menü Bağlantıları)
+       ======================================================== -->
+  <header class="sticky top-0 z-50 bg-cream-50/90 backdrop-blur-md border-b border-cream-200/80 transition-all">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+      
+      <!-- Logo / İsim Başlığı -->
+      <a href="#hero" class="group flex items-center gap-2">
+        <div class="w-10 h-10 rounded-full bg-navy-900 text-cream-50 flex items-center justify-center font-serif text-lg font-bold border border-gold-400/40 shadow-sm group-hover:scale-105 transition-transform">
+          SY
+        </div>
+        <div class="flex flex-col">
+          <span class="font-serif text-lg sm:text-xl font-bold text-navy-900 tracking-tight leading-none">
+            Sevgi Yiğitalp
+          </span>
+          <span class="text-[11px] font-medium text-navy-700/70 tracking-widest uppercase mt-1" data-tr="Mütercim Tercüman" data-en="Translator & Interpreter">
+            Mütercim Tercüman
+          </span>
+        </div>
+      </a>
+
+      <!-- Masaüstü Navigasyon -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-navy-800">
+        <a href="#about" class="hover:text-gold-500 transition-colors" data-tr="Hakkımda" data-en="About">Hakkımda</a>
+        <a href="#experience" class="hover:text-gold-500 transition-colors" data-tr="Deneyim" data-en="Experience">Deneyim</a>
+        <a href="#skills" class="hover:text-gold-500 transition-colors" data-tr="Beceriler" data-en="Skills">Beceriler</a>
+        <a href="#projects" class="hover:text-gold-500 transition-colors" data-tr="Projeler" data-en="Projects">Projeler</a>
+        <a href="#interests" class="hover:text-gold-500 transition-colors" data-tr="İlgi Alanları" data-en="Interests">İlgi Alanları</a>
+        <a href="#contact" class="hover:text-gold-500 transition-colors" data-tr="İletişim" data-en="Contact">İletişim</a>
+      </nav>
+
+      <!-- Sağ Kontrol: Dil Değiştirici (TR / EN) ve Mobil Menü Butonu -->
+      <div class="flex items-center gap-3">
+        
+        <!-- TR / EN Geçiş Düğmesi -->
+        <button id="langToggleBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-navy-900/20 bg-cream-100/80 hover:bg-cream-200/60 text-xs font-bold text-navy-900 transition shadow-sm" title="Dili Değiştir / Switch Language">
+          <svg class="w-3.5 h-3.5 text-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+          </svg>
+          <span id="currentLangLabel">TR</span>
+          <span class="text-navy-900/40">|</span>
+          <span id="targetLangLabel" class="text-navy-900/60">EN</span>
+        </button>
+
+        <!-- Mobil Menü Butonu (Hamburger) -->
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg text-navy-900 hover:bg-cream-200/50 transition">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Mobil Açılır Menü -->
+    <div id="mobileMenu" class="hidden md:hidden bg-cream-100 border-b border-cream-200 px-6 py-4 space-y-3 text-sm font-semibold text-navy-900">
+      <a href="#about" class="block py-1.5 hover:text-gold-500 mobile-nav-link" data-tr="Hakkımda" data-en="About">Hakkımda</a>
+      <a href="#experience" class="block py-1.5 hover:text-gold-500 mobile-nav-link" data-tr="Deneyim" data-en="Experience">Deneyim</a>
+      <a href="#skills" class="block py-1.5 hover:text-gold-500 mobile-nav-link" data-tr="Beceriler" data-en="Skills">Beceriler</a>
+      <a href="#projects" class="block py-1.5 hover:text-gold-500 mobile-nav-link" data-tr="Projeler" data-en="Projects">Projeler</a>
+      <a href="#interests" class="block py-1.5 hover:text-gold-500 mobile-nav-link" data-tr="İlgi Alanları" data-en="Interests">İlgi Alanları</a>
+      <a href="#contact" class="block py-1.5 hover:text-gold-500 mobile-nav-link" data-tr="İletişim" data-en="Contact">İletişim</a>
+    </div>
+  </header>
+
+  <main class="flex-1">
+
+    <!-- ========================================================
+         GİRİŞ / HERO BÖLÜMÜ (Açılışta Yazılan İsim & Çevirmen Detayı)
+         ======================================================== -->
+    <section id="hero" class="relative overflow-hidden py-16 sm:py-24 border-b border-cream-200/60 bg-gradient-to-b from-cream-100/60 via-cream-50 to-cream-50">
+      
+      <!-- Dekoratif Arka Plan Çeviri Motifleri -->
+      <div class="absolute right-0 top-1/2 -translate-y-1/2 opacity-[0.03] select-none pointer-events-none font-serif text-[18rem] font-bold text-navy-900 leading-none">
+        &para;
+      </div>
+
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 relative">
+        <div class="max-w-3xl space-y-6">
+          
+          <!-- Bölüm & Üniversite Rozeti -->
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900 text-cream-50 text-xs sm:text-sm font-medium tracking-wide shadow-sm border border-gold-400/30">
+            <span class="w-2 h-2 rounded-full bg-gold-400 animate-pulse"></span>
+            <span>İstanbul Yeni Yüzyıl Üniversitesi &bull; İngilizce Mütercim Tercümanlık (4. Sınıf)</span>
+          </div>
+
+          <!-- Açılışta Daktilo Efektiyle Yazılan İsim -->
+          <div>
+            <h1 class="font-serif text-4xl sm:text-6xl font-bold text-navy-950 tracking-tight leading-tight">
+              <span id="typewriterTarget" class="typing-cursor"></span>
+            </h1>
+            <p class="mt-3 text-lg sm:text-xl font-serif italic text-navy-800/80">
+              Mütercim Tercüman Adayı & Dil Eğitmeni
+            </p>
+          </div>
+
+          <!-- Kendimi bir cümleyle anlatırsam -->
+          <p class="text-base sm:text-lg text-navy-900/85 leading-relaxed font-normal" data-tr="Çeviri yapmayı, kültürler arası köprüler kurmayı ve dillerin zenginliğini paylaşmayı amaçlayan; sözlü tercüme alanında uzmanlaşmayı hedefleyen bir mütercim tercüman adayıyım." data-en="I am an aspiring translator and interpreter passionate about building bridges between cultures, sharing the richness of languages, and advancing toward a career in conference interpreting.">
+            Çeviri yapmayı, kültürler arası köprüler kurmayı ve dillerin zenginliğini paylaşmayı amaçlayan; sözlü tercüme alanında uzmanlaşmayı hedefleyen bir mütercim tercüman adayıyım.
+          </p>
+
+          <!-- ÇEVİRMENE ÖZEL İNTERAKTİF DOKUNUŞ: Çeviri / Motto Kartı -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-cream-100/90 border border-cream-200/90 paper-shadow">
+            <div class="flex items-start justify-between gap-3">
+              <div class="space-y-1">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-gold-500 block" data-tr="Çevirmenlik Mottosu (Tıklayarak Çevir)" data-en="Translator's Motto (Click to Toggle)">
+                  Çevirmenlik Mottosu &bull; Tıklayarak Çevir
+                </span>
+                <p id="mottoText" class="font-serif italic text-sm sm:text-base text-navy-900 transition-all duration-300 cursor-pointer hover:text-gold-500">
+                  &ldquo;Translators are the shadow heroes who allow cultures to talk to one another.&rdquo;
+                </p>
+                <p id="mottoSub" class="text-xs text-navy-700/60 font-sans">
+                  (Türkçesini görmek için üzerine dokunun)
+                </p>
+              </div>
+              <button id="btnFlipMotto" class="shrink-0 p-2 rounded-xl bg-navy-900 text-cream-50 hover:bg-gold-500 hover:text-navy-950 transition" title="Motto Çevirisini Göster">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Aksiyon Düğmeleri -->
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <a href="#contact" class="px-6 py-3 rounded-xl bg-navy-900 text-cream-50 hover:bg-navy-800 text-sm font-semibold shadow-md hover:shadow-lg transition active:scale-95" data-tr="İletişime Geç" data-en="Get in Touch">
+              İletişime Geç
+            </a>
+            <a href="#projects" class="px-6 py-3 rounded-xl bg-cream-100 hover:bg-cream-200/80 text-navy-900 border border-cream-300/80 text-sm font-semibold transition active:scale-95" data-tr="Çalışmalarımı İncele" data-en="View My Work">
+              Çalışmalarımı İncele
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========================================================
+         1. BÖLÜM: HAKKIMDA & ÇALIŞMA DİLLERİ
+         ======================================================== -->
+    <section id="about" class="py-16 sm:py-20 border-b border-cream-200/60">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          
+          <!-- Sol Kolon: Başlık ve Açıklama -->
+          <div class="md:col-span-7 space-y-4">
+            <div class="flex items-center gap-2 text-gold-500 font-bold text-xs uppercase tracking-widest">
+              <span>01</span>
+              <span class="w-8 h-[1px] bg-gold-500"></span>
+              <span data-tr="BEN KİMİM?" data-en="WHO AM I?">BEN KİMİM?</span>
+            </div>
+
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy-950" data-tr="Hakkımda" data-en="About Me">
+              Hakkımda
+            </h2>
+
+            <!-- Kullanıcının belirttiği hakkımda metni -->
+            <p class="text-base sm:text-lg text-navy-900/90 leading-relaxed font-sans" data-tr="Çeviri yapmayı, diğer kültürler ile ilgilenmeyi seviyorum. Bunun yanında diller ile ilgilenmeyi seviyorum ve bunu başkalarıyla paylaşmaktan da mutlu oluyorum. Gelecekteki hedefim ise sözlü tercüman olmak ve bu alanda profesyonel olarak ilerlemektir." data-en="I love translating and exploring different cultures. Alongside this, I have a deep passion for languages and truly enjoy sharing this knowledge with others. My ultimate goal is to become a professional conference/simultaneous interpreter and advance steadily in this field.">
+              Çeviri yapmayı, diğer kültürler ile ilgilenmeyi seviyorum. Bunun yanında diller ile ilgilenmeyi seviyorum ve bunu başkalarıyla paylaşmaktan da mutlu oluyorum. Gelecekteki hedefim ise sözlü tercüman olmak ve bu alanda profesyonel olarak ilerlemektir.
+            </p>
+
+            <div class="pt-3 border-t border-cream-200/80 text-sm text-navy-800/80 space-y-1">
+              <p><strong class="text-navy-950 font-semibold" data-tr="Eğitim:" data-en="Education:">Eğitim:</strong> İstanbul Yeni Yüzyıl Üniversitesi</p>
+              <p><strong class="text-navy-950 font-semibold" data-tr="Bölüm:" data-en="Department:">Bölüm:</strong> İngilizce Mütercim Tercümanlık, 4. Sınıf (Lisans Son Sınıf)</p>
+              <p><strong class="text-navy-950 font-semibold" data-tr="Odak Alanı:" data-en="Focus Area:">Odak Alanı:</strong> Sözlü Çeviri (Ardıl / Eşzamanlı), Hukuki Çeviri & Dil Öğretimi</p>
+            </div>
+          </div>
+
+          <!-- Sağ Kolon: Çalışma Dilleri Kartı -->
+          <div class="md:col-span-5 bg-navy-900 text-cream-50 p-6 sm:p-7 rounded-3xl shadow-xl border border-navy-800 space-y-5">
+            <div class="flex items-center justify-between border-b border-navy-800 pb-3">
+              <h3 class="font-serif text-lg font-bold text-cream-50 flex items-center gap-2">
+                <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                </svg>
+                <span data-tr="Çalışma Dillerim" data-en="Working Languages">Çalışma Dillerim</span>
+              </h3>
+              <span class="text-xs text-gold-400 font-mono tracking-wider">A &bull; B &bull; C</span>
+            </div>
+
+            <!-- Dil 1: Türkçe -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs font-semibold">
+                <span class="text-cream-100 text-sm">Türkçe (A Dili)</span>
+                <span class="text-gold-400" data-tr="Ana Dil" data-en="Native">Ana Dil</span>
+              </div>
+              <div class="w-full bg-navy-800 h-2 rounded-full overflow-hidden">
+                <div class="bg-gold-400 h-full rounded-full" style="width: 100%"></div>
+              </div>
+            </div>
+
+            <!-- Dil 2: İngilizce -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs font-semibold">
+                <span class="text-cream-100 text-sm">İngilizce (B Dili)</span>
+                <span class="text-gold-400" data-tr="Akıcı / C1-C2" data-en="Fluent / C1-C2">Akıcı / C1-C2</span>
+              </div>
+              <div class="w-full bg-navy-800 h-2 rounded-full overflow-hidden">
+                <div class="bg-gold-400 h-full rounded-full" style="width: 95%"></div>
+              </div>
+            </div>
+
+            <!-- Dil 3: Üçüncü Dil / Yer Tutucu (Kullanıcının isteği doğrultusunda şablon) -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs font-semibold">
+                <span class="text-cream-200 text-sm">[İspanyolca / 3. Dilinizi buraya ekleyin]</span>
+                <span class="text-cream-300/70" data-tr="Başlangıç / A1-A2" data-en="Beginner / A1-A2">Başlangıç / A1-A2</span>
+              </div>
+              <div class="w-full bg-navy-800 h-2 rounded-full overflow-hidden">
+                <div class="bg-cream-200/50 h-full rounded-full" style="width: 35%"></div>
+              </div>
+            </div>
+
+            <p class="text-[11px] text-cream-200/60 italic pt-1">
+              * Mütercim Tercümanlık standartlarına uygun olarak kaynak dilden hedef dile kültürel ve terminolojik aktarım.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================
+         2. BÖLÜM: DENEYİM
+         ======================================================== -->
+    <section id="experience" class="py-16 sm:py-20 border-b border-cream-200/60 bg-cream-100/40">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 space-y-8">
+        
+        <div class="space-y-2">
+          <div class="flex items-center gap-2 text-gold-500 font-bold text-xs uppercase tracking-widest">
+            <span>02</span>
+            <span class="w-8 h-[1px] bg-gold-500"></span>
+            <span data-tr="GEÇMİŞ & TECRÜBE" data-en="BACKGROUND & CAREER">GEÇMİŞ & TECRÜBE</span>
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy-950" data-tr="Deneyimlerim" data-en="My Experience">
+            Deneyimlerim
+          </h2>
+        </div>
+
+        <div class="space-y-6">
+          
+          <!-- Deneyim 1: Tercümanlık Bürosu Stajı & Hukuki Çeviri -->
+          <div class="bg-cream-50 p-6 sm:p-7 rounded-3xl border border-cream-200/80 paper-shadow hover:border-gold-400/60 transition group">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-3">
+              <div>
+                <h3 class="font-serif text-xl font-bold text-navy-950 group-hover:text-gold-500 transition">
+                  Stajyer Mütercim &bull; [Tercümanlık Bürosu Adını Buraya Ekleyin]
+                </h3>
+                <span class="text-xs font-semibold text-gold-500 uppercase tracking-wider" data-tr="Hukuk & Belge Çevirisi" data-en="Legal & Document Translation">
+                  Hukuk & Belge Çevirisi
+                </span>
+              </div>
+              <span class="text-xs px-3 py-1 rounded-full bg-cream-200 text-navy-900 font-mono font-medium self-start sm:self-auto">
+                [Staj Tarih Aralığı / ör. 2023 - 2024]
+              </span>
+            </div>
+            <p class="text-sm sm:text-base text-navy-900/85 leading-relaxed" data-tr="Tercümanlık bürosunda gerçekleştirdiğim staj kapsamında; hukuk belgeleri başta olmak üzere sözleşmeler, vekaletnameler, resmi yazışmalar ve çeşitli teknik metinlerin kaynak dilden hedef dile aslına sadık ve terminolojiye uygun çevirilerini tamamladım." data-en="During my internship at a translation bureau, I translated official legal documents—primarily contracts, powers of attorney, and official correspondences—as well as various technical texts, strictly adhering to terminology and formatting standards.">
+              Tercümanlık bürosunda gerçekleştirdiğim staj kapsamında; hukuk belgeleri başta olmak üzere sözleşmeler, vekaletnameler, resmi yazışmalar ve çeşitli teknik metinlerin kaynak dilden hedef dile aslına sadık ve terminolojiye uygun çevirilerini tamamladım.
+            </p>
+          </div>
+
+          <!-- Deneyim 2: Video & Multimedya Altyazı Çevirmenliği -->
+          <div class="bg-cream-50 p-6 sm:p-7 rounded-3xl border border-cream-200/80 paper-shadow hover:border-gold-400/60 transition group">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-3">
+              <div>
+                <h3 class="font-serif text-xl font-bold text-navy-950 group-hover:text-gold-500 transition">
+                  Multimedya & Altyazı Çevirmeni &bull; [Proje / Kurum Adı]
+                </h3>
+                <span class="text-xs font-semibold text-gold-500 uppercase tracking-wider" data-tr="Görsel-İşitsel Çeviri (AVT)" data-en="Audiovisual Translation (AVT)">
+                  Görsel-İşitsel Çeviri (AVT)
+                </span>
+              </div>
+              <span class="text-xs px-3 py-1 rounded-full bg-cream-200 text-navy-900 font-mono font-medium self-start sm:self-auto">
+                [Tarih Aralığını Buraya Ekleyin]
+              </span>
+            </div>
+            <p class="text-sm sm:text-base text-navy-900/85 leading-relaxed" data-tr="Çeşitli video içerikleri için zaman kodlu (time-coded) altyazı çevirmenliği gerçekleştirdim. Konuşma dilinin kültürel inceliklerini koruyarak izleyici için akıcı ve ekran okuma hızına uygun görsel-işitsel çeviriler hazırladım." data-en="Handled time-coded subtitle translation for various video productions. Crafted natural, culturally adapted audiovisual translations conforming to screen reading speed and timing constraints.">
+              Çeşitli video içerikleri için zaman kodlu (time-coded) altyazı çevirmenliği gerçekleştirdim. Konuşma dilinin kültürel inceliklerini koruyarak izleyici için akıcı ve ekran okuma hızına uygun görsel-işitsel çeviriler hazırladım.
+            </p>
+          </div>
+
+          <!-- Deneyim 3: 3 Yıllık Öğretmenlik / Dil Eğitmenliği -->
+          <div class="bg-cream-50 p-6 sm:p-7 rounded-3xl border border-cream-200/80 paper-shadow hover:border-gold-400/60 transition group">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-3">
+              <div>
+                <h3 class="font-serif text-xl font-bold text-navy-950 group-hover:text-gold-500 transition">
+                  İngilizce Eğitmeni &bull; [Okul / Kurs / Bireysel Eğitim]
+                </h3>
+                <span class="text-xs font-semibold text-gold-500 uppercase tracking-wider" data-tr="Dil Pedagojisi & İletişim" data-en="Language Pedagogy & Communication">
+                  Dil Pedagojisi & İletişim
+                </span>
+              </div>
+              <span class="text-xs px-3 py-1 rounded-full bg-cream-200 text-navy-900 font-mono font-medium self-start sm:self-auto">
+                3 Yıldır Aktif (2021 - Günümüz)
+              </span>
+            </div>
+            <p class="text-sm sm:text-base text-navy-900/85 leading-relaxed" data-tr="3 yıldır aktif olarak öğrencilere İngilizce dil eğitimi vermekteyim. Dil edinim süreçlerinde gramer, konuşma pratiği ve kelime dağarcığını geliştirmeye yönelik kişiselleştirilmiş ders programları hazırlayarak öğretmenlik görevimi sürdürmekteyim." data-en="For over 3 years, I have been actively teaching English, designing customized curricula focusing on grammar mastery, speaking fluency, and vocabulary enrichment.">
+              3 yıldır aktif olarak öğrencilere İngilizce dil eğitimi vermekteyim. Dil edinim süreçlerinde gramer, konuşma pratiği ve kelime dağarcığını geliştirmeye yönelik kişiselleştirilmiş ders programları hazırlayarak öğretmenlik görevimi sürdürmekteyim.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================
+         3. BÖLÜM: BECERİLERİM
+         ======================================================== -->
+    <section id="skills" class="py-16 sm:py-20 border-b border-cream-200/60">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 space-y-8">
+        
+        <div class="space-y-2">
+          <div class="flex items-center gap-2 text-gold-500 font-bold text-xs uppercase tracking-widest">
+            <span>03</span>
+            <span class="w-8 h-[1px] bg-gold-500"></span>
+            <span data-tr="YETKİNLİKLER" data-en="COMPETENCIES">YETKİNLİKLER</span>
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy-950" data-tr="Becerilerim & Araçlar" data-en="Skills & Tools">
+            Becerilerim & Araçlar
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Kategori 1: Çeviri & CAT Araçları -->
+          <div class="p-6 rounded-3xl bg-cream-100/70 border border-cream-200/80 space-y-4">
+            <div class="w-10 h-10 rounded-2xl bg-navy-900 text-cream-50 flex items-center justify-center">
+              <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h3 class="font-serif text-lg font-bold text-navy-950" data-tr="CAT Araçları & Teknoloji" data-en="CAT Tools & Tech">
+              CAT Araçları & Teknoloji
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-lg bg-cream-50 border border-cream-300/80 text-xs font-semibold text-navy-900">SDL Trados Studio</span>
+              <span class="px-3 py-1 rounded-lg bg-cream-50 border border-cream-300/80 text-xs font-semibold text-navy-900">memoQ</span>
+              <span class="px-3 py-1 rounded-lg bg-cream-50 border border-cream-300/80 text-xs font-semibold text-navy-900">Terminoloji Yönetimi</span>
+              <span class="px-3 py-1 rounded-lg bg-cream-50 border border-cream-300/80 text-xs font-semibold text-navy-900">[Diğer CAT aracını ekleyin]</span>
+            </div>
+          </div>
+
+          <!-- Kategori 2: Çeviri Alanları & Uzmanlık -->
+          <div class="p-6 rounded-3xl bg-cream-100/70 border border-cream-200/80 space-y-4">
+            <div class="w-10 h-10 rounded-2xl bg-navy-900 text-cream-50 flex items-center justify-center">
+              <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z" />
+              </svg>
+            </div>
+            <h3 class="font-serif text-lg font-bold text-navy-950" data-tr="Çeviri Alanları" data-en="Translation Fields">
+              Çeviri Alanları
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-lg bg-cream-50 border border-cream-300/80 text-xs font-semibold text-navy-900">Sözlü Çeviri (Ardıl)</span>
+              <span class="px-3 py-1 rounded-lg bg-cream-50 border border-cream-300/80 text-xs font-semibold text-navy-900">Hukuki Çeviri</span>
+              <span class="px-3 py-1 rounded-lg bg-cream-50 border border-cream-300/80 text-xs font-semibold text-navy-900">Altyazı Çevirisi (AVT)</span>
+              <span class="px-3 py-1 rounded-lg bg-cream-50 border border-cream-300/80 text-xs font-semibold text-navy-900">Metin Redaksiyonu</span>
+            </div>
+          </div>
+
+          <!-- Kategori 3: Eğitmenlik & Dijital Tasarım -->
+          <div class="p-6 rounded-3xl bg-cream-100/70 border border-cream-200/80 space-y-4">
+            <div class="w-10 h-10 rounded-2xl bg-navy-900 text-cream-50 flex items-center justify-center">
+              <svg class="w-5 h-5 text-gold-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+              </svg>
+            </div>
+            <h3 class="font-serif text-lg font-bold text-navy-950" data-tr="Pedagoji & Tasarım" data-en="Pedagogy & Design">
+              Pedagoji & Tasarım
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-lg bg-cream-50 border border-cream-300/80 text-xs font-semibold text-navy-900">İngilizce Öğretimi (ELT)</span>
+              <span class="px-3 py-1 rounded-lg bg-cream-50 border border-cream-300/80 text-xs font-semibold text-navy-900">Canva (Görsel İçerik)</span>
+              <span class="px-3 py-1 rounded-lg bg-cream-50 border border-cream-300/80 text-xs font-semibold text-navy-900">Ders Materyali Tasarımı</span>
+              <span class="px-3 py-1 rounded-lg bg-cream-50 border border-cream-300/80 text-xs font-semibold text-navy-900">Kültürlerarası İletişim</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================
+         4. BÖLÜM: PROJELERİM / ÇALIŞMALARIM
+         ======================================================== -->
+    <section id="projects" class="py-16 sm:py-20 border-b border-cream-200/60 bg-cream-100/40">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 space-y-8">
+        
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-gold-500 font-bold text-xs uppercase tracking-widest">
+              <span>04</span>
+              <span class="w-8 h-[1px] bg-gold-500"></span>
+              <span data-tr="PORTFOLYO" data-en="PORTFOLIO">PORTFOLYO</span>
+            </div>
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy-950" data-tr="Projelerim & Çalışmalarım" data-en="Projects & Works">
+              Projelerim & Çalışmalarım
+            </h2>
+          </div>
+          <p class="text-xs text-navy-700/60 italic max-w-xs">
+            * Gerçekleştirdiğim çeviri, altyazı ve akademik proje çalışmalarından örnekler.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          
+          <!-- PROJE 1 KARTI (Kullanıcı için doldurulabilir şablon) -->
+          <div class="bg-cream-50 p-6 rounded-3xl border border-cream-200/90 paper-shadow flex flex-col justify-between hover:border-gold-400 transition group">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-xs text-gold-500 font-bold">
+                <span class="uppercase tracking-wider">[Proje 1 Kategorisi / ör. Hukuk Çevirisi]</span>
+                <span class="font-mono text-navy-700/50">#01</span>
+              </div>
+              <h3 class="font-serif text-xl font-bold text-navy-950 group-hover:text-gold-500 transition">
+                [Proje 1 Adını Buraya Ekleyin]
+              </h3>
+              <p class="text-sm text-navy-900/80 leading-relaxed">
+                [Proje 1 hakkında 1-2 cümlelik açıklama buraya ekleyin. Örneğin: Uluslararası bir sözleşmenin İngilizce-Türkçe terminolojik çevirisi ve karşılaştırmalı analizi.]
+              </p>
+            </div>
+            <div class="pt-5 mt-4 border-t border-cream-200/70 flex items-center justify-between">
+              <span class="text-xs font-semibold text-navy-700/60">[Kullanılan Araç / ör. Trados]</span>
+              <a href="#" class="inline-flex items-center gap-1 text-xs font-bold text-navy-900 hover:text-gold-500 transition">
+                <span>[Proje Bağlantısı / İncele]</span>
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- PROJE 2 KARTI (Kullanıcı için doldurulabilir şablon) -->
+          <div class="bg-cream-50 p-6 rounded-3xl border border-cream-200/90 paper-shadow flex flex-col justify-between hover:border-gold-400 transition group">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-xs text-gold-500 font-bold">
+                <span class="uppercase tracking-wider">[Proje 2 Kategorisi / ör. Altyazı & Medya]</span>
+                <span class="font-mono text-navy-700/50">#02</span>
+              </div>
+              <h3 class="font-serif text-xl font-bold text-navy-950 group-hover:text-gold-500 transition">
+                [Proje 2 Adını Buraya Ekleyin]
+              </h3>
+              <p class="text-sm text-navy-900/80 leading-relaxed">
+                [Proje 2 hakkında 1-2 cümlelik açıklama buraya ekleyin. Örneğin: Belgesel ve eğitim videoları için zamanlamalı altyazı çevirisi ve yerelleştirme çalışması.]
+              </p>
+            </div>
+            <div class="pt-5 mt-4 border-t border-cream-200/70 flex items-center justify-between">
+              <span class="text-xs font-semibold text-navy-700/60">[Kullanılan Araç / ör. Subtitle Edit]</span>
+              <a href="#" class="inline-flex items-center gap-1 text-xs font-bold text-navy-900 hover:text-gold-500 transition">
+                <span>[Proje Bağlantısı / İncele]</span>
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================
+         5. BÖLÜM: İLGİ ALANLARIM & HOBİLERİM
+         ======================================================== -->
+    <section id="interests" class="py-16 sm:py-20 border-b border-cream-200/60">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 space-y-8">
+        
+        <div class="space-y-2">
+          <div class="flex items-center gap-2 text-gold-500 font-bold text-xs uppercase tracking-widest">
+            <span>05</span>
+            <span class="w-8 h-[1px] bg-gold-500"></span>
+            <span data-tr="KİŞİSEL" data-en="PERSONAL">KİŞİSEL</span>
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy-950" data-tr="İlgi Alanlarım & Hobilerim" data-en="Interests & Hobbies">
+            İlgi Alanlarım & Hobilerim
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          
+          <!-- Hobi 1: Dizi & Film Altyazısı -->
+          <div class="p-5 rounded-2xl bg-cream-100/60 border border-cream-200/80 text-center space-y-2 hover:bg-cream-100 transition">
+            <div class="w-12 h-12 mx-auto rounded-full bg-navy-900 text-gold-400 flex items-center justify-center shadow-sm">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+              </svg>
+            </div>
+            <h4 class="font-serif font-bold text-navy-950 text-base" data-tr="Dizi & Film Altyazısı" data-en="TV Series & Film Subtitling">
+              Dizi & Film Altyazısı
+            </h4>
+            <p class="text-xs text-navy-800/70">
+              Görsel-işitsel çeviri pratikleri ve popüler kültür yerelleştirmesi.
+            </p>
+          </div>
+
+          <!-- Hobi 2: Fotoğrafçılık -->
+          <div class="p-5 rounded-2xl bg-cream-100/60 border border-cream-200/80 text-center space-y-2 hover:bg-cream-100 transition">
+            <div class="w-12 h-12 mx-auto rounded-full bg-navy-900 text-gold-400 flex items-center justify-center shadow-sm">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <h4 class="font-serif font-bold text-navy-950 text-base" data-tr="Fotoğrafçılık" data-en="Photography">
+              Fotoğrafçılık
+            </h4>
+            <p class="text-xs text-navy-800/70">
+              Şehir detayları, anı yakalama ve estetik görsel kompozisyon.
+            </p>
+          </div>
+
+          <!-- Hobi 3: Basketbol -->
+          <div class="p-5 rounded-2xl bg-cream-100/60 border border-cream-200/80 text-center space-y-2 hover:bg-cream-100 transition">
+            <div class="w-12 h-12 mx-auto rounded-full bg-navy-900 text-gold-400 flex items-center justify-center shadow-sm">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <circle cx="12" cy="12" r="9" stroke-width="2" />
+                <path stroke-linecap="round" stroke-width="2" d="M12 3v18M3 12h18M4.5 4.5c4.5 4.5 4.5 10.5 0 15M19.5 4.5c-4.5 4.5-4.5 10.5 0 15" />
+              </svg>
+            </div>
+            <h4 class="font-serif font-bold text-navy-950 text-base" data-tr="Basketbol" data-en="Basketball">
+              Basketbol
+            </h4>
+            <p class="text-xs text-navy-800/70">
+              Takım ruhu, dinamizm ve aktif yaşam enerjisi.
+            </p>
+          </div>
+
+          <!-- Hobi 4: Kültürler & Diller -->
+          <div class="p-5 rounded-2xl bg-cream-100/60 border border-cream-200/80 text-center space-y-2 hover:bg-cream-100 transition">
+            <div class="w-12 h-12 mx-auto rounded-full bg-navy-900 text-gold-400 flex items-center justify-center shadow-sm">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            </div>
+            <h4 class="font-serif font-bold text-navy-950 text-base" data-tr="Dünya Kültürleri" data-en="World Cultures">
+              Dünya Kültürleri
+            </h4>
+            <p class="text-xs text-navy-800/70">
+              Farklı dillerin etimolojisi ve kültürlerarası antropoloji.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================
+         6. BÖLÜM: İLETİŞİM
+         ======================================================== -->
+    <section id="contact" class="py-16 sm:py-24 bg-navy-900 text-cream-50 relative overflow-hidden">
+      
+      <!-- Dekoratif Altın Dokunuş -->
+      <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-gold-400/5 blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 relative">
+        <div class="max-w-2xl mx-auto text-center space-y-6">
+          
+          <div class="inline-flex items-center gap-2 text-gold-400 font-bold text-xs uppercase tracking-widest">
+            <span>06</span>
+            <span class="w-8 h-[1px] bg-gold-400"></span>
+            <span data-tr="BANA ULAŞIN" data-en="GET IN TOUCH">BANA ULAŞIN</span>
+          </div>
+
+          <h2 class="font-serif text-3xl sm:text-5xl font-bold text-cream-50" data-tr="Birlikte Çalışalım" data-en="Let's Work Together">
+            Birlikte Çalışalım
+          </h2>
+
+          <p class="text-sm sm:text-base text-cream-200/80 leading-relaxed font-sans" data-tr="Yazılı çeviri, sözlü tercüme veya dil eğitimi projeleri için benimle iletişime geçebilirsiniz." data-en="Feel free to reach out for translation, interpreting, or language teaching inquiries.">
+            Yazılı çeviri, sözlü tercüme veya dil eğitimi projeleri için benimle iletişime geçebilirsiniz.
+          </p>
+
+          <!-- İletişim Kanalları -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 text-left">
+            
+            <!-- Okul E-postası -->
+            <a href="mailto:[okul-epostaniz@yeniyuzyil.edu.tr]" class="p-5 rounded-2xl bg-navy-850 hover:bg-navy-800 border border-navy-800 hover:border-gold-400/50 transition group flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center shrink-0 border border-navy-700">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-xs text-cream-300/70 font-semibold uppercase tracking-wider block" data-tr="Üniversite E-postası" data-en="University Email">
+                  Üniversite E-postası
+                </span>
+                <span class="text-sm font-medium text-cream-100 group-hover:text-gold-400 transition truncate block">
+                  [okul-epostaniz@yeniyuzyil.edu.tr]
+                </span>
+              </div>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="[LinkedIn Profil Linkinizi Buraya Ekleyin]" target="_blank" rel="noopener noreferrer" class="p-5 rounded-2xl bg-navy-850 hover:bg-navy-800 border border-navy-800 hover:border-gold-400/50 transition group flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center shrink-0 border border-navy-700">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.738-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-xs text-cream-300/70 font-semibold uppercase tracking-wider block">
+                  LinkedIn
+                </span>
+                <span class="text-sm font-medium text-cream-100 group-hover:text-gold-400 transition truncate block">
+                  [LinkedIn Profil Linkinizi Buraya Ekleyin]
+                </span>
+              </div>
+            </a>
+
+            <!-- GitHub / Diğer Bağlantı -->
+            <a href="[GitHub Profil Linkinizi Buraya Ekleyin]" target="_blank" rel="noopener noreferrer" class="p-5 rounded-2xl bg-navy-850 hover:bg-navy-800 border border-navy-800 hover:border-gold-400/50 transition group flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center shrink-0 border border-navy-700">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                </svg>
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-xs text-cream-300/70 font-semibold uppercase tracking-wider block">
+                  GitHub / Portfolyo
+                </span>
+                <span class="text-sm font-medium text-cream-100 group-hover:text-gold-400 transition truncate block">
+                  [GitHub Profil Linkinizi Buraya Ekleyin]
+                </span>
+              </div>
+            </a>
+
+            <!-- Kişisel / İkincil E-posta -->
+            <a href="mailto:[kisisel-epostaniz@gmail.com]" class="p-5 rounded-2xl bg-navy-850 hover:bg-navy-800 border border-navy-800 hover:border-gold-400/50 transition group flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-navy-900 text-gold-400 flex items-center justify-center shrink-0 border border-navy-700">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                </svg>
+              </div>
+              <div class="overflow-hidden">
+                <span class="text-xs text-cream-300/70 font-semibold uppercase tracking-wider block" data-tr="Doğrudan E-posta" data-en="Direct Email">
+                  Doğrudan E-posta
+                </span>
+                <span class="text-sm font-medium text-cream-100 group-hover:text-gold-400 transition truncate block">
+                  [kisisel-epostaniz@gmail.com]
+                </span>
+              </div>
+            </a>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================
+       ALT BİLGİ / FOOTER
+       ======================================================== -->
+  <footer class="bg-navy-950 text-cream-200/60 py-8 border-t border-navy-900 text-xs text-center">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="font-serif font-bold text-cream-100">Sevgi Yiğitalp</span>
+        <span>&bull;</span>
+        <span data-tr="İstanbul Yeni Yüzyıl Üniversitesi" data-en="Istanbul Yeni Yüzyıl University">İstanbul Yeni Yüzyıl Üniversitesi</span>
+      </div>
+      <div>
+        <p>&copy; 2026 Sevgi Yiğitalp. <span data-tr="Tüm hakları saklıdır." data-en="All rights reserved.">Tüm hakları saklıdır.</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================
+       JAVASCRIPT: Daktilo Efekti, TR-EN Dil Değiştirici ve Mobil Menü
+       ======================================================== -->
+  <script>
+    /**
+     * 1. AÇILIŞTA ADIN YAZILMASI (Daktilo / Typewriter Efekti)
+     */
+    const fullName = "Sevgi Yiğitalp";
+    const typewriterElement = document.getElementById("typewriterTarget");
+    let charIndex = 0;
+
+    function typeWriter() {
+      if (charIndex < fullName.length) {
+        typewriterElement.textContent += fullName.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeWriter, 90); // Yazma hızı (milisaniye)
+      } else {
+        // Yazma bittikten 3 saniye sonra imleci kaldır
+        setTimeout(() => {
+          typewriterElement.classList.remove("typing-cursor");
+        }, 3000);
+      }
+    }
+
+    // Sayfa yüklendiğinde daktilo efektini başlat
+    window.addEventListener("DOMContentLoaded", () => {
+      setTimeout(typeWriter, 300);
+    });
+
+    /**
+     * 2. ÇEVİRMEN MOTTO KARTI ETKİLEŞİMİ (Tıklayınca Çeviriyi Göster)
+     */
+    const mottoText = document.getElementById("mottoText");
+    const mottoSub = document.getElementById("mottoSub");
+    const btnFlipMotto = document.getElementById("btnFlipMotto");
+
+    const mottoEN = "“Translators are the shadow heroes who allow cultures to talk to one another.”";
+    const mottoTR = "“Çevirmenler, kültürlerin birbiriyle konuşmasını sağlayan gölge kahramanlardır.”";
+    let isMottoEN = true;
+
+    function toggleMotto() {
+      isMottoEN = !isMottoEN;
+      mottoText.style.opacity = 0;
+      setTimeout(() => {
+        mottoText.innerHTML = isMottoEN ? mottoEN : mottoTR;
+        mottoSub.textContent = isMottoEN ? "(Türkçesini görmek için dokunun)" : "(Click to view in English)";
+        mottoText.style.opacity = 1;
+      }, 150);
+    }
+
+    mottoText.addEventListener("click", toggleMotto);
+    btnFlipMotto.addEventListener("click", toggleMotto);
+
+    /**
+     * 3. İKİ DİLLİ GEÇİŞ SİSTEMİ (TR <-> EN)
+     */
+    const langToggleBtn = document.getElementById("langToggleBtn");
+    const currentLangLabel = document.getElementById("currentLangLabel");
+    const targetLangLabel = document.getElementById("targetLangLabel");
+    let currentLang = "tr";
+
+    langToggleBtn.addEventListener("click", () => {
+      currentLang = currentLang === "tr" ? "en" : "tr";
+      
+      // Butondaki etiketleri güncelle
+      currentLangLabel.textContent = currentLang.toUpperCase();
+      targetLangLabel.textContent = currentLang === "tr" ? "EN" : "TR";
+
+      // 'data-tr' ve 'data-en' özniteliklerine sahip tüm metinleri değiştir
+      const translatableElements = document.querySelectorAll("[data-tr][data-en]");
+      translatableElements.forEach(el => {
+        const translation = el.getAttribute(`data-${currentLang}`);
+        if (translation) {
+          el.textContent = translation;
+        }
+      });
+    });
+
+    /**
+     * 4. MOBİL MENÜ YÖNETİMİ
+     */
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+
+    mobileMenuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    // Mobil menüdeki bir bağlantıya tıklandığında menüyü kapat
+    mobileNavLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+      });
+    });
+  </script>
+
+</body>
+</html>

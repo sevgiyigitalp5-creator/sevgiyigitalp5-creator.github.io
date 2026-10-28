@@ -1,1 +1,1 @@
-# sevgiyigitalp5-creator.github.io
+# sevgiyigitalp5.github.io
